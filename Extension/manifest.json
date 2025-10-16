@@ -1,0 +1,39 @@
+// extension/manifest.json
+{
+  "manifest_version": 3,
+  "name": "SafeTabGuard",
+  "version": "1.0",
+  "description": "Detects and blocks phishing or harmful websites to keep you safe online.",
+
+  "permissions": [
+    "tabs",           
+    "scripting",      
+    "storage",        
+    "activeTab",      
+    "webNavigation"   
+  ],
+
+  "host_permissions": [
+    "<all_urls>"
+  ],
+
+  "background": {
+    "service_worker": "background.js"
+  },
+
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "SafeTabGuard",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}
