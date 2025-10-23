@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Warning: Unsafe Website</title>
+  <link href="styles/output.css" rel="stylesheet" />
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        Helvetica, Arial, sans-serif;
+      background: radial-gradient(circle at top, #0f172a, #020617);
+      color: #cbd5e1;
+    }
+
+    /* Smooth fade-in for the warning box */
+    .fade-in {
+      animation: fadeIn 0.56s cubic-bezier(.2,.9,.3,1) both;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Soft glow on the danger icon */
+    .glow-red { filter: drop-shadow(0 6px 18px rgba(239,68,68,0.14)); }
+
+    /* Small utility to make the blocked-url block align width with risk circle */
+    .content-max { max-width: 520px; margin-left: auto; margin-right: auto; }
+  </style>
+</head>
+<body class="min-h-screen flex w-full items-center justify-around p-6">
+
+  <div class="w-full max-w-6xl fade-in rounded-2xl bg-slate-800/70 shadow-2xl shadow-black/50 overflow-hidden backdrop-blur-sm">
+
+    <!-- Use grid with items-center so both columns align vertically -->
+    <div class="grid md:grid-cols-5  items-center">
+
+      <!-- Left: icon + headline -->
+      <div class="md:col-span-2 p-8 md:p-10 flex flex-col items-center text-center border-r border-slate-700">
+        <svg class="w-24 h-24 text-red-500 mb-5 glow-red" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/>
+        </svg>
+        <h1 class="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-red-500 to-orange-400 bg-clip-text text-transparent leading-tight">
+          Deceptive Site Ahead
+        </h1>
+
+        <p class="mt-3 text-slate-400 text-sm leading-relaxed max-w-sm">
+          Attackers on this site might try to steal your information (e.g., passwords, messages, or credit cards).
+        </p>
+      </div>
+
+      <!-- Right: details + actions -->
+      <div class="md:col-span-3 p-6 md:p-10 flex flex-col justify-between">
+
+        <!-- Top area: risk score centered and constrained -->
+        <div class="w-full flex justify-center mb-6">
+          <div class="content-max text-center">
+            <h2 class="text-sm font-semibold text-slate-400 mb-3 uppercase tracking-wide">Calculated Risk Score</h2>
+            <div id="risk-score-container" class="w-28 h-28 mx-auto rounded-full flex items-center justify-center bg-slate-700/60 p-1 shadow-inner shadow-black/40">
+              <div class="w-full h-full rounded-full bg-slate-900 flex items-center justify-center">
+                <span id="risk-score" class="text-3xl font-bold text-red-400">--</span>
+                <span class="text-xl font-bold text-slate-500 ml-1">%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Middle area: blocked url and reasons, aligned to same width as score -->
+        <div class="w-full flex justify-center">
+          <div class="content-max space-y-5">
+
+            <div class="bg-slate-900/60 p-4 rounded-lg border border-slate-700 shadow-inner">
+              <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Blocked URL</p>
+              <p id="blocked-url" class="font-mono text-slate-300 mt-1 break-all text-sm">loading...</p>
+            </div>
+
+            <div>
+              <h3 class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Detected Threats</h3>
+              <ul id="reasons-list" class="space-y-2 text-sm">
+                <li class="flex items-start space-x-3 text-slate-500">
+                  <svg class="w-4 h-4 mt-1 text-yellow-400 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path d="M8.257 3.099c.765-1.36 2.722-1.36 3.487 0l5.516 9.807c.75 1.33-.214 2.994-1.744 2.994H4.485c-1.53 0-2.494-1.663-1.744-2.994L8.257 3.1zM9 8a1 1 0 012 0v3a1 1 0 11-2 0V8zm1 6a1 1 0 100 2 1 1 0 000-2z"/>
+                  </svg>
+                  <span>Loading reasons...</span>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Bottom area: actions — centered single strip, primary + secondary -->
+        <div class="w-full mt-6">
+          <div class="content-ma mx-auto flex flex-col justify-center sm:flex-row items-center gap-5">
+            <!-- Primary button (full prominence) -->
+            <button id="go-back"
+              class="cursor-pointer flex-1 w-full sm:flex-none sm:w-auto bg-gradient-to-r from-blue-600 to-indigo-600 font-semibold py-3 px-6 rounded-md transition-transform duration-200 hover:scale-[1.02] focus:outline-none focus:ring-4 focus:ring-blue-500/30">
+              Go Back to Safety
+            </button>
+
+            <!-- Secondary button (dangerous action) -->
+            <button id="proceed-anyway"
+              class="flex border-2 rounded-lg cursor-pointer border-red-600 p-0.5 items-center justify-center gap-2 w-full sm:w-56 text-sm text-slate-400 hover:text-red-400 hover:underline transition-colors">
+              <!-- small warning icon on left -->
+              <svg class="w-6 h-6 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.487 0l5.516 9.807c.75 1.33-.214 2.994-1.744 2.994H4.485c-1.53 0-2.494-1.664-1.744-2.994L8.257 3.1zM9 8a1 1 0 012 0v3a1 1 0 11-2 0V8zm1 6a1 1 0 100 2 1 1 0 000-2z" clip-rule="evenodd"/></svg>
+              <span>Ignore warning and proceed to site</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="p-3 text-center border-t border-slate-700 bg-slate-900/40">
+      <p class="text-xs text-slate-500 tracking-wide">🔒 SafeTabGuard Protection</p>
+    </div>
+  </div>
+
+  <script src="scripts/warning.js"></script>
+</body>
+</html>
