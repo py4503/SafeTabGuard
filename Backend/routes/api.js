@@ -36,7 +36,7 @@ const checkVirusTotal = async (url) => {
         return { isUnsafe: false, reason: null };
     } catch (error) {
         if (error.response && error.response.status === 404) return { isUnsafe: false, reason: null };
-        console.error('❌ [Backend] Error calling VirusTotal API:', error.message);
+        console.error(' [Backend] Error calling VirusTotal API:', error.message);
         return { isUnsafe: false, reason: null };
     }
 };
@@ -68,7 +68,7 @@ const checkUrlHeuristics = (url) => {
                 keywordCount++;
             }
         });
-        if (keywordCount > 1) { // Penalize more if multiple keywords appear
+        if (keywordCount > 1) {
             score += 2;
             reasons.push("URL path/parameters contain multiple suspicious keywords.");
         } else if (keywordCount === 1) {
@@ -153,7 +153,7 @@ const analyzeContentWithBedrock = async (htmlContent) => {
         const decodedBody = new TextDecoder().decode(apiResponse.body);
         const responseBody = JSON.parse(decodedBody);
 
-        console.log("AI response:", responseBody);
+        // console.log("AI response:", responseBody);
         
         const rawText = responseBody.content[0].text;
 

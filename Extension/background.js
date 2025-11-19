@@ -1,9 +1,9 @@
 // extension/background.js
 
-const FAST_CHECK_URL = 'http://localhost:5000/api/check-url-fast';
-const AI_ANALYSIS_URL = 'http://localhost:5000/api/analyze-content-ai';
+const FAST_CHECK_URL = 'https://safetabguard.onrender.com/api/check-url-fast';
+const AI_ANALYSIS_URL = 'https://safetabguard.onrender.com/api/analyze-content-ai';
 
-// ✅ NEW: Message listener to handle the "Proceed Anyway" request from the warning page.
+// NEW: Message listener to handle the "Proceed Anyway" request from the warning page.
 chrome.runtime.onMessage.addListener((message, sender) => {
     if (message.type === 'proceedToUrl' && message.url && sender.tab?.id) {
         // Step 1: Set the bypass flag in storage.
@@ -20,7 +20,7 @@ chrome.webNavigation.onCommitted.addListener((details) => {
     chrome.storage.local.get(['protectionEnabled', 'bypassUrl'], (result) => {
       const isEnabled = result.protectionEnabled !== false;
 
-      // ✅ FIXED: Use a precise match and clear the bypass flag.
+      // FIXED: Use a precise match and clear the bypass flag.
       if (result.bypassUrl && details.url === result.bypassUrl) {
         console.log(`[SafeTabGuard] Bypass activated for: ${details.url}`);
         chrome.storage.local.remove('bypassUrl');

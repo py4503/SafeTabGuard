@@ -10,14 +10,12 @@ const AnalysisCacheSchema = new mongoose.Schema({
     unique: true,
     index: true,   
   },
-  
 
   result: {
     type: Object, 
     required: true,
   },
 
-  
   createdAt: {
     type: Date,
     default: Date.now,
